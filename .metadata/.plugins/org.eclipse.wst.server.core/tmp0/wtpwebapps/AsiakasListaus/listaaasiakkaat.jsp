@@ -5,36 +5,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>Asiakaslistaus ja haku</title>
-<style>
-.vasemmalle{
-	text-align: left;
-	background-color: rgba(246, 6, 229, 0.48);
-	padding: 5px;
-}
-.keskelle{
-	text-align: center;
-	color: white;
-	background-color: rgba(192, 23, 230);
-	padding: 3px;
-}
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<title>Asiakkaat</title>
 
-</style>
 </head>
 <body>
 <table id="listaus">
-	<thead>	
+	<thead>
+	<tr>
+			<th colspan="6" class="oikealle"><span id="uusiAsiakas">Lisää uusi asiakas</span></th>
+		</tr>
 		<tr>
-			<th class="keskelle" colspan="2">Hakusana:</th>
-			<th class="keskelle" colspan="2"><input type="text" id="hakusana"></th>
-			<th class="keskelle"><input type="button" value="Hae" id="hakunappi"></th>
+			<th class="oikealle" colspan="3">Hakusana:</th>
+			<th class="vasemmalletumma" colspan="2"><input type="text" id="hakusana"></th>
+			<th class="vasemmalletumma"><input type="button" value="Hae" id="hakunappi"></th>
 		</tr>			
 		<tr>
 			<th class="vasemmalle">Asiakas id</th>
 			<th class="vasemmalle">Etunimi</th>
 			<th class="vasemmalle">Sukunimi</th>
 			<th class="vasemmalle">Puhelinnumero</th>
-			<th class="vasemmalle">Sähköpostiosoite</th>							
+			<th class="vasemmalle">Sähköpostiosoite</th>
+			<th class="vasemmalle">Poista</th>						
 		</tr>
 	</thead>
 	<tbody>
@@ -42,6 +34,10 @@
 </table>
 <script>
 $(document).ready(function(){
+	
+	$("#uusiAsiakas").click(function(){
+		document.location="lisaaasiakas.jsp";
+	});
 	
 	haeAsiakkaat();
 	$("#hakunappi").click(function(){		
@@ -66,12 +62,26 @@ function haeAsiakkaat(){
         	htmlStr+="<td>"+field.sukunimi+"</td>";
         	htmlStr+="<td>"+field.puhelin+"</td>";
         	htmlStr+="<td>"+field.sposti+"</td>";
+        	htmlStr+="<td><span class='poista' onclick=poista('"+field.asiakasid+"')>Poista</span></td>";
         	htmlStr+="</tr>";
         	$("#listaus tbody").append(htmlStr);
         });	
     }});
 }
 
+function poista(asiakasid){
+	if(confirm("Poista asiakas " + asiakasid +"?")){
+		$.ajax({url:"asiakkaat/"+asiakasid, type:"DELETE", dataType:"json", success:function(result) { //result on joko {"response:1"} tai {"response:0"}
+	        if(result.response==0){
+	        	$("#ilmo").html("Asiakkaan poisto epäonnistui.");
+	        }else if(result.response==1){
+	        	$("#rivi_"+asiakasid).css("background-color", "red"); //Värjätään poistetun asiakkaan rivi
+	        	alert("Asiakkaan " + asiakasid +" poisto onnistui.");
+				haeAsiakkaat();       	
+			}
+	    }});
+	}
+}
 </script>
 </body>
 </html>

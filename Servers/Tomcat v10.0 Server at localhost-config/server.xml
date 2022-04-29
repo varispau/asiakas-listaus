@@ -134,7 +134,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="OmaEka" path="/OmaEka" reloadable="true" source="org.eclipse.jst.jee.server:OmaEka"/><Context docBase="Eta3" path="/Eta3" reloadable="true" source="org.eclipse.jst.jee.server:Eta3"/><Context docBase="Kommunikaatio" path="/Kommunikaatio" reloadable="true" source="org.eclipse.jst.jee.server:Kommunikaatio"/><Context docBase="AsiakasListaus" path="/AsiakasListaus" reloadable="true" source="org.eclipse.jst.jee.server:AsiakasListaus"/></Host>
+      <Context docBase="OmaEka" path="/OmaEka" reloadable="true" source="org.eclipse.jst.jee.server:OmaEka"/><Context docBase="Eta3" path="/Eta3" reloadable="true" source="org.eclipse.jst.jee.server:Eta3"/><Context docBase="Kommunikaatio" path="/Kommunikaatio" reloadable="true" source="org.eclipse.jst.jee.server:Kommunikaatio"/><Context docBase="AsiakasListaus" path="/AsiakasListaus" reloadable="true" source="org.eclipse.jst.jee.server:AsiakasListaus"/><Context docBase="Eta4" path="/Eta4" reloadable="true" source="org.eclipse.jst.jee.server:Eta4"/></Host>
     </Engine>
   </Service>
 </Server>
